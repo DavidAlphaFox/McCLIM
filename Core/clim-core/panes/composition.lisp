@@ -283,9 +283,11 @@
            (cond (resize-frame
                   (layout-frame frame))
                  (t
-                  (layout-frame frame
-                                (bounding-rectangle-width pane)
-                                (bounding-rectangle-height pane))))))))
+                  (if (frame-resize-frame frame)
+                      (layout-frame frame)
+                      (layout-frame frame
+                                    (bounding-rectangle-width pane)
+                                    (bounding-rectangle-height pane)))))))))
 
 (defmethod compose-space ((pane top-level-sheet-pane) &key width height)
   (declare (ignore width height))

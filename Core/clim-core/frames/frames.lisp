@@ -121,7 +121,9 @@ input focus. This is a McCLIM extension."))
    (panes-for-layout :initform nil :accessor frame-panes-for-layout
                      :documentation "alist of names and panes
                                      (as returned by make-pane)")
-
+   (resize-frame :initarg :resize-frame
+                 :initform nil
+                 :accessor frame-resize-frame)
    (output-pane :initform nil
                 :accessor frame-standard-output
                 :accessor frame-error-output)
@@ -280,8 +282,14 @@ documentation produced by presentations.")
   (unless (eql name (frame-current-layout frame))
     (call-next-method)
     (alexandria:when-let ((fm (frame-manager frame)))
-      (generate-panes fm frame)
-      (layout-frame frame)
+      (let ((old-width (and (frame-top-level-sheet frame)
+                            (bounding-rectangle-width (frame-top-level-sheet frame))))
+            (old-height (and (frame-top-level-sheet frame)
+                             (bounding-rectangle-height (frame-top-level-sheet frame)))))
+        (generate-panes fm frame)
+        (if (and old-width old-height (not (frame-resize-frame frame)))
+            (layout-frame frame old-width old-height)
+            (layout-frame frame)))
       (signal 'frame-layout-changed :frame frame))))
 
 (defmethod (setf frame-command-table) :around (new-command-table frame)
