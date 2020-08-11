@@ -323,10 +323,10 @@ maximum size according to `frame')."
                                      ;; difference (to make room for
                                      ;; scroll bars).
                                      :width (+ menu-width
-                                               (- (pane-current-width scroller)
+                                               (- (bounding-rectangle-width scroller)
                                                   viewport-width))
                                      :height (+ menu-height
-                                                (- (pane-current-height scroller)
+                                                (- (bounding-rectangle-height scroller)
                                                    viewport-height))
                                      :resize-frame t))))
 
