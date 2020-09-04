@@ -31,6 +31,7 @@
      (:file "text-size-test" :depends-on ("text-size-util"))
      (:file "drawing-benchmark")
      (:file "logic-cube")
+     (:file "checkers")
      (:file "views")
      (:file "font-selector")
      (:file "bordered-output-examples")
