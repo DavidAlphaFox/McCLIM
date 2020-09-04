@@ -483,7 +483,7 @@ Assumes that GENERATE-GRAPH-NODES has generated only nodes up to the cutoff-dept
               ;;
               (let ((majors (loop for x across generation-sizes
                                   collect (+ x generation-separation)))
-                    (u (/ generation-separation 2))
+                    (u 0)
                     (v 0))
                 (maplist (lambda (rest)
                            (setf v (compute-position (car rest) majors u v))
